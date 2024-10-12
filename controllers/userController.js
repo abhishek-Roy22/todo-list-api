@@ -10,4 +10,18 @@ const handleSignup = async (req, res) => {
   return res.status(201).send(user);
 };
 
-export { handleSignup };
+const handleSignin = async (req, res) => {
+  const { email, password } = req.body;
+  try {
+    const token = await User.matchPassword(email, password);
+    return res.cookie('token', token).json(token);
+  } catch (error) {
+    res.status(404).json(`${error.message}`);
+  }
+};
+
+const handleLogout = (req, res) => {
+  res.clearCookie('token').redirect('/');
+};
+
+export { handleSignup, handleSignin, handleLogout };

@@ -1,5 +1,9 @@
 import { Router } from 'express';
-import { handleSignup } from '../controllers/userController.js';
+import {
+  handleSignin,
+  handleSignup,
+  handleLogout,
+} from '../controllers/userController.js';
 
 const userRoute = Router();
 
@@ -12,4 +16,7 @@ userRoute.get('/signin', (req, res) => {
 });
 
 userRoute.post('/signup', handleSignup);
+userRoute.post('/signin', handleSignin);
+userRoute.get('/logout', handleLogout);
+
 export { userRoute };
