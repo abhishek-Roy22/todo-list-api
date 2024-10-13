@@ -8,11 +8,11 @@ import {
 const userRoute = Router();
 
 userRoute.get('/signup', (req, res) => {
-  res.send('SignUp page');
+  res.render('Signup');
 });
 
 userRoute.get('/signin', (req, res) => {
-  res.send('SingIn page');
+  res.render('Signin');
 });
 
 userRoute.post('/signup', handleSignup);
