@@ -6,6 +6,8 @@ import connectToDb from './connection.js';
 import cookieParser from 'cookie-parser';
 import authenticateCookie from './middleware/auth.js';
 import path from 'path';
+import todoRoute from './routes/todoRoute.js';
+import { getTodos } from './controllers/todoController.js';
 
 const app = express();
 const PORT = process.env.PORT || 3000;
@@ -17,16 +19,13 @@ app.set('views', path.resolve('./views'));
 app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(authenticateCookie('token'));
-// app.use(express.json());
+app.use(express.json());
 
 // Routes
-app.get('/', (req, res) => {
-  res.render('Home', {
-    user: req.user,
-  });
-});
+app.get('/', getTodos);
 
 app.use('/user', userRoute);
+app.use('/todos', todoRoute);
 
 // Connected to DB
 connectToDb(DbUrl)
